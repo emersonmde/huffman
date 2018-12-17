@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 
+"""
+Copyright (c) 2018 Matthew Emerson
+
+A simple python implementation of Huffman coding
+"""
 
 import struct
+
 from priority_queue import PriorityQueue
 
 
@@ -73,6 +79,7 @@ class HuffmanNode:
 
 class HuffmanTree:
     """Sets up a Huffman Tree for encoding and decoding text"""
+
     def build_tree(self, text):
         """
         Users letter frequency found in text to construct the Huffman tree
@@ -319,20 +326,19 @@ class HuffmanTree:
             print("'{0}'\t\t{1}\t\t{1:0{2}b}".format(i, code, length))
 
     def __repr__(self):
-        return "<HuffmanTree: head={}, pqueue={}>".format(self.head, self.pqueue)
+        return "<HuffmanTree: head={}>".format(self.head)
 
 
 if __name__ == "__main__":
-    str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla et sodales dapibus. Nullam mauris orci, cursus eget tellus id, vulputate viverra nulla. Ut dapibus magna neque, vitae imperdiet nibh dictum at. Vestibulum vel justo at massa efficitur molestie scelerisque eu justo. Morbi auctor dui pretium, tempus mauris consequat, lobortis metus. Etiam gravida orci sed lorem pretium finibus. Curabitur vestibulum odio dui, eu porttitor nulla dapibus ac. Proin imperdiet ut ipsum sit amet bibendum. Etiam tempus lectus nunc, cursus facilisis arcu porttitor a. Ut et fringilla purus, sit amet rutrum urna. Praesent nec pellentesque mauris. Morbi mattis, diam lobortis varius malesuada, ipsum nulla semper turpis, in laoreet urna nisi vel magna. Sed et erat vitae nibh posuere tincidunt."
-    str = str * 500
-    # str = "This is just another string to see the compression ratio. Seems like its not so good unless each character is repeated at least 6 times on average. This means the longer the string the better the compression ratio. The compression ratio is unfavorable for smaller strings because of the required header containing the code table."
+    in_str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla et sodales dapibus. Nullam mauris orci"
+    in_str = in_str * 500
 
-    str_size = len(str.encode('utf-8'))
-    print("Original text: {}\n".format(str))
+    str_size = len(in_str.encode('utf-8'))
+    print("Original text: {}\n".format(in_str))
 
     tree = HuffmanTree()
-    tree.build_tree(str)
-    encoded_text = tree.encode(str)
+    tree.build_tree(in_str)
+    encoded_text = tree.encode(in_str)
     print("Encoded text: {}\n".format(" ".join("{:02x}".format(c) for c in encoded_text)))
 
     new_tree = HuffmanTree()
